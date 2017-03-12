@@ -73,10 +73,27 @@ func (s *LamportSuite) TestSignMessageOneByte(c *C) {
 	c.Assert(kp.private[7].second, DeepEquals, sig[7])
 }
 
-func (s *LamportSuite) TestVerifyMessageOneByte(c *C) {
+func (s *LamportSuite) TestVerifyOneByteWhenSignatureIsValid(c *C) {
 	m := "a"
 	kp := GenLamportKeyPair()
 	sig := Sign(m, kp)
 	ver := Verify(m, kp.public, sig)
 	c.Assert(ver, Equals, true)
+}
+
+func (s *LamportSuite) TestVerifyMultipleBytesWhenSignatureIsValid(c *C) {
+	m := "For most of history, Anonymous was a woman."
+	kp := GenLamportKeyPair()
+	sig := Sign(m, kp)
+	ver := Verify(m, kp.public, sig)
+	c.Assert(ver, Equals, true)
+}
+
+func (s *LamportSuite) TestVerifyMultipleBytesWhenSignatureIsInvalid(c *C) {
+	m := "I was taught that the way of progress was neither swift nor easy."
+	mTwo := "It is not the strongest of the species that survive, nor the most intelligent, but the one most responsive to change."
+	kp := GenLamportKeyPair()
+	sig := Sign(m, kp)
+	ver := Verify(mTwo, kp.public, sig)
+	c.Assert(ver, Equals, false)
 }

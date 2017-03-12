@@ -99,10 +99,9 @@ func genSignature(m string, k [256]*key) *Signature {
 		}
 	}
 	return &sig
-
 }
 
-// Sign will return a lamport signature for a given message
+// Sign will return a Lamport signature for a given message
 func Sign(m string, kp *Keypair) *Signature {
 	return genSignature(m, kp.private)
 }
