@@ -56,13 +56,13 @@ func (s *LamportSuite) TestSelectPrivKeyBitOneSelectsSecondPrivKey(c *C) {
 func (s *LamportSuite) TestSignMessage(c *C) {
 	m := "When skies are hanged and oceans drowned, the single secret will still be man"
 	kp := GenLamportKeyPair()
-	sig := GenSignature(m, kp)
+	sig := Sign(m, kp)
 	c.Assert(256, Equals, len(sig))
 }
 
 func (s *LamportSuite) TestSignMessageOneByte(c *C) {
 	kp := GenLamportKeyPair()
-	sig := GenSignature("a", kp)
+	sig := Sign("a", kp)
 	c.Assert(kp.private[0].first, DeepEquals, sig[0])
 	c.Assert(kp.private[1].first, DeepEquals, sig[1])
 	c.Assert(kp.private[2].first, DeepEquals, sig[2])
@@ -76,7 +76,7 @@ func (s *LamportSuite) TestSignMessageOneByte(c *C) {
 func (s *LamportSuite) TestVerifyMessageOneByte(c *C) {
 	m := "a"
 	kp := GenLamportKeyPair()
-	sig := GenSignature(m, kp)
+	sig := Sign(m, kp)
 	ver := Verify(m, kp.public, sig)
 	c.Assert(ver, Equals, true)
 }

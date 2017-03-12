@@ -23,6 +23,6 @@ func (s *BenchSuite) BenchmarkGenSignature(c *C) {
 ,not to praise him.`
 	kp := GenLamportKeyPair()
 	for i := 0; i < c.N; i++ {
-		GenSignature(m, kp)
+		Sign(m, kp)
 	}
 }
