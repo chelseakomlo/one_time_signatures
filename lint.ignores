@@ -1,0 +1,1 @@
+^_bench\.go:[[:digit:]]+:[[:digit:]]+:exported const .* should have comment
