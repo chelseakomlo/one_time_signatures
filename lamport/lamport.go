@@ -52,9 +52,10 @@ func hash256(b [32]byte) [32]byte {
 }
 
 func genPublicKey(privKey *key) *key {
-	pOne := hash256(privKey.first)
-	pTwo := hash256(privKey.second)
-	return &key{first: pOne, second: pTwo}
+	return &key{
+		first:  hash256(privKey.first),
+		second: hash256(privKey.second),
+	}
 }
 
 func genKeyPair() (pub []*key, priv []*key) {
